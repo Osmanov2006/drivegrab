@@ -1,0 +1,2 @@
+playwright>=1.40
+img2pdf>=0.5

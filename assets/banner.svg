@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1117"/>
+      <stop offset="1" stop-color="#161b2e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4f8cff"/>
+      <stop offset="0.5" stop-color="#34c38f"/>
+      <stop offset="1" stop-color="#f5c542"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.5" r="0.45">
+      <stop offset="0" stop-color="#4f8cff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#4f8cff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="320" rx="24" fill="url(#bg)"/>
+  <rect width="1200" height="320" rx="24" fill="url(#glow)"/>
+
+  <!-- title -->
+  <text x="80" y="150" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" font-size="78" font-weight="700" fill="#e6edf3">drive<tspan fill="url(#accent)">grab</tspan></text>
+  <text x="84" y="200" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" fill="#8b949e">View-only PDFs &amp; whole folders from Google Drive</text>
+  <text x="84" y="240" font-family="'JetBrains Mono','SF Mono',Consolas,monospace" font-size="20" fill="#56d364">$ drivegrab https://drive.google.com/drive/folders/…</text>
+
+  <!-- folder -->
+  <g transform="translate(790 95)">
+    <path d="M0 18 a10 10 0 0 1 10 -10 h44 l14 14 h62 a10 10 0 0 1 10 10 v84 a10 10 0 0 1 -10 10 h-120 a10 10 0 0 1 -10 -10z" fill="#4f8cff" opacity="0.9"/>
+    <path d="M0 40 h140 v76 a10 10 0 0 1 -10 10 h-120 a10 10 0 0 1 -10 -10z" fill="#6ea0ff"/>
+  </g>
+
+  <!-- arrow -->
+  <path d="M948 160 h44" stroke="#34c38f" stroke-width="5" stroke-linecap="round"/>
+  <path d="M984 148 l14 12 l-14 12" fill="none" stroke="#34c38f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- zip / pdf stack -->
+  <g transform="translate(1012 92)">
+    <rect x="16" y="0" width="92" height="120" rx="10" fill="#2d333b"/>
+    <rect x="8" y="8" width="92" height="120" rx="10" fill="#3a414b"/>
+    <rect x="0" y="16" width="92" height="120" rx="10" fill="#f5c542"/>
+    <text x="46" y="88" text-anchor="middle" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#0d1117">ZIP</text>
+  </g>
+</svg>
