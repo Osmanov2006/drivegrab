@@ -3,131 +3,127 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Osmanov2006/drivegrab/actions/workflows/ci.yml"><img src="https://github.com/Osmanov2006/drivegrab/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/python-3.9%2B-3776AB?logo=python&logoColor=white" alt="Python 3.9+">
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT">
 </p>
 
-<p align="center"><b>English</b> · <a href="README.ru.md">Русский</a></p>
+<p align="center"><a href="#english">English</a> · <a href="#русский">Русский</a></p>
 
 ---
 
-## What is this?
+## English
 
-Some Google Drive files can only be **viewed**, not downloaded. There's no download button, and printing is blocked too.
+Some Google Drive files can only be **viewed**, not downloaded. There's no download button, and printing is blocked.
+**drivegrab** saves them anyway. Paste a link, get the files.
 
-**drivegrab** saves them anyway. You paste a link, and it gives you the files.
+- Works with a **single file** or a **whole folder** (all subfolders included).
+- Keeps the **same folder structure** and packs it into a **.zip**.
+- If a file *can* be downloaded normally, you get the original.
 
-- Works with a **single file** or a **whole folder**, including all subfolders.
-- Keeps the **same folder structure** and packs everything into a **.zip**.
-- If a file *can* be downloaded normally, you get the original file.
+### How to use
 
-## Quick start
-
-**1. Install** (one time). You need [Python 3.9+](https://www.python.org/downloads/).
+**1. Download the project.** Click the green **Code** button, then **Download ZIP**, and unzip it. Or use git:
 
 ```bash
 git clone https://github.com/Osmanov2006/drivegrab.git
-cd drivegrab
+```
+
+**2. Install** (one time). You need [Python 3.9+](https://www.python.org/downloads/). Open a terminal in the project folder and run:
+
+```bash
 pip install -r requirements.txt
 playwright install chromium
 ```
 
-**2. Run**
+**3. Run it and paste a link**
 
 ```bash
-python -m drivegrab
+python drivegrab.py
 ```
-
-**3. Paste a link and press Enter**
 
 ```text
-Drive link (empty to quit): https://drive.google.com/drive/folders/1n64NVPN...
+Drive link (empty to quit): https://drive.google.com/drive/folders/...
 ```
 
-A browser window opens and starts working by itself. **Don't close it.** When it's done:
+A browser window opens and works by itself. **Don't close it.** When it's finished, your files are in the **`downloads`** folder.
 
-```text
-zip: downloads/Probability and Random Variables.zip
-saved: 69  failed: 0
-```
-
-Your files are in the **`downloads`** folder next to the project.
-
-## What does it look like while running?
+### What you'll see
 
 ```text
 folder: Probability and Random Variables
-collecting file list...
-  Exercises: 3 items
-  Lecture Notes: 4 items
-  Slides: 4 items
 files found: 69
 
 [1/69] Exercises/Chapter_1_Exercises_EN.pdf
     download is disabled, capturing the preview...
     pages: 12
     done: Chapter_1_Exercises_EN.pdf
+...
+zip: downloads/Probability and Random Variables.zip
 ```
 
-- **"download is disabled"** means the file is view-only, so drivegrab rebuilds it page by page from the preview. That's normal.
-- **"original file saved"** means the file was downloadable, so you got the real file.
+- **download is disabled** means the file is view-only, so it gets rebuilt page by page. That's normal.
+- **original file saved** means the file was downloadable, so you got the real one.
 
-## Common questions
+### Problems?
 
-**It asks me to sign in.**
-The file isn't public. Sign in to Google in the browser window that opened, then press Enter in the terminal. You only do this once, because the login is remembered.
-
-**Pages look blurry.**
-Run it with a bigger window: `python -m drivegrab --size 2560x1440`
-
-**I can't select text in the PDF.**
-View-only files are rebuilt from page images, so the text isn't selectable. Run them through [OCRmyPDF](https://github.com/ocrmypdf/OCRmyPDF) if you need searchable text.
-
-**Some files failed.**
-They're listed at the end. Usually that's a video or a file with no preview.
-
-**Can I give links without the prompt?**
-Yes: `python -m drivegrab <link1> <link2>`
-
-## All options
-
-| Option | What it does |
+| Problem | Fix |
 |---|---|
-| `-o folder` | Save somewhere other than `downloads` |
-| `--no-zip` | Don't create a zip, just the folder |
-| `--size 2560x1440` | Bigger window, sharper pages |
-| `-q 0.8` | JPEG quality (lower means smaller files) |
+| It asks me to sign in | Sign in to Google in the opened browser window, then press Enter in the terminal. You only need to do this once. |
+| Pages look blurry | `python drivegrab.py --size 2560x1440` |
+| Can't select text in the PDF | View-only files are rebuilt from images. Use [OCRmyPDF](https://github.com/ocrmypdf/OCRmyPDF) if you need text. |
+| Some files failed | They're listed at the end. Usually that's a video or a file with no preview. |
 
-## What's in this repo
+Other options: `-o folder` (save elsewhere), `--no-zip`, `-q 0.8` (smaller files). See `python drivegrab.py --help`.
 
-The actual program is the `drivegrab/` folder. Everything else is the standard setup that makes a Python project installable and tested.
+### How it works
 
-| File | Why it's there |
+It opens Drive in a real browser (via [Playwright](https://playwright.dev/python/)). For folders, it reads Google's simple folder listing and goes into every subfolder. For each file it first tries a normal download. If that's blocked, it scrolls through the viewer, saves each page image as it appears, and joins them into a PDF with [img2pdf](https://pypi.org/project/img2pdf/).
+
+---
+
+## Русский
+
+Некоторые файлы на Google Drive можно только **смотреть**: кнопки «Скачать» нет, печать закрыта.
+**drivegrab** всё равно их сохраняет. Вставляешь ссылку и получаешь файлы.
+
+- Работает с **одним файлом** или **целой папкой**, включая все подпапки.
+- Сохраняет **ту же структуру папок** и упаковывает всё в **.zip**.
+- Если файл можно скачать обычным способом, сохраняется оригинал.
+
+### Как пользоваться
+
+**1. Скачай проект.** Нажми зелёную кнопку **Code**, затем **Download ZIP**, и распакуй архив.
+
+**2. Установи зависимости** (один раз). Нужен [Python 3.9+](https://www.python.org/downloads/). Открой терминал в папке проекта и выполни:
+
+```bash
+pip install -r requirements.txt
+playwright install chromium
+```
+
+**3. Запусти и вставь ссылку**
+
+```bash
+python drivegrab.py
+```
+
+Откроется окно браузера и начнёт работать само. **Не закрывай его.** Когда всё закончится, файлы будут в папке **`downloads`**.
+
+### Если что-то не так
+
+| Проблема | Решение |
 |---|---|
-| `drivegrab/grabber.py` | **The main logic**: opens Drive, walks folders, downloads files, captures pages |
-| `drivegrab/scripts.py` | Small JavaScript pieces that run inside the Drive page and read the page images |
-| `drivegrab/cli.py` | What you see in the terminal: the link prompt and the options |
-| `drivegrab/links.py` | Pulls the file or folder ID out of a Drive link |
-| `drivegrab/paths.py` | Makes file names safe for Windows and avoids overwriting files |
-| `tests/` | Automatic checks that the link and file-name logic works |
-| `.github/workflows/ci.yml` | Runs those checks on GitHub after every change (the green **CI** badge) |
-| `pyproject.toml`, `requirements.txt` | Lists the dependencies so `pip install` works |
+| Просит войти в аккаунт | Войди в Google в открывшемся окне и нажми Enter в терминале. Это нужно сделать один раз. |
+| Страницы размытые | `python drivegrab.py --size 2560x1440` |
+| В PDF не выделяется текст | View-only файлы собираются из картинок. Для текста используй [OCRmyPDF](https://github.com/ocrmypdf/OCRmyPDF). |
+| Часть файлов не скачалась | Они перечислены в конце. Обычно это видео или файлы без превью. |
 
-## How it works (short version)
+---
 
-1. For a folder, it opens Google's simple folder listing page and goes through every subfolder.
-2. For each file, it first tries a normal download.
-3. If downloading is blocked, it opens the file viewer and scrolls through it. Drive shows each page as an image, so drivegrab saves every page image as it appears and puts them together into a PDF.
+### Responsible use · Честное использование
 
-## Please use it responsibly
+drivegrab only works on files you can already open in your browser. It doesn't bypass access rights. Use it for material you're allowed to keep.
+Скрипт работает только с файлами, которые ты и так можешь открыть, и права доступа не обходит.
 
-drivegrab only works on files you can already open in your browser. It doesn't break any access rights. Use it for material you're allowed to keep, like your own course files.
-
-## Credits
-
-Based on the browser-console trick from
-[zeltox/Google-Drive-PDF-Downloader](https://github.com/zeltox/Google-Drive-PDF-Downloader).
-drivegrab turns it into a full tool with folder support.
-
+Based on the console trick from [zeltox/Google-Drive-PDF-Downloader](https://github.com/zeltox/Google-Drive-PDF-Downloader).
 License: [MIT](LICENSE) © Magamedkhan Osmanov
